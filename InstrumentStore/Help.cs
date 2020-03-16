@@ -7,7 +7,7 @@ namespace InstrumentStore
         
         public static bool StartHelp()
         {
-            Console.ForegroundColor = ConsoleColor.Blue;
+
             System.Console.WriteLine("Select an option below that best represents your issue.\n'account'\n'order'\n'product'\n'store'");
             System.Console.WriteLine("If you have no more questions, type 'done' to go back to the previous page");
 
@@ -15,7 +15,6 @@ namespace InstrumentStore
 
             if (helpResponse == "done")
             {
-                Console.ResetColor();
                 System.Console.WriteLine("No more help needed");
                 return false;
             }

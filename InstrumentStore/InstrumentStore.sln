@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29905.134
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "InstrumentStore", "InstrumentStore.csproj", "{166EE827-FBD9-4AEF-8F95-D0609C862F8E}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{166EE827-FBD9-4AEF-8F95-D0609C862F8E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{166EE827-FBD9-4AEF-8F95-D0609C862F8E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{166EE827-FBD9-4AEF-8F95-D0609C862F8E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{166EE827-FBD9-4AEF-8F95-D0609C862F8E}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {CDB63C20-AD25-40DB-8898-6047D299DC8A}
+	EndGlobalSection
+EndGlobal
