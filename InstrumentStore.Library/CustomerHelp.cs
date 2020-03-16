@@ -2,20 +2,20 @@ using System;
 
 namespace InstrumentStore
 {
-    class Help
+    public class CustomerHelp
     {
         
-        public static bool StartHelp()
+        public static bool StartHelpCustomer()
         {
 
             System.Console.WriteLine("Select an option below that best represents your issue.\n'account'\n'order'\n'product'\n'store'");
-            System.Console.WriteLine("If you have no more questions, type 'done' to go back to the previous page");
+            System.Console.WriteLine("'done'\tGo back to the previous page");
 
             string helpResponse = System.Console.ReadLine().ToLower();
 
             if (helpResponse == "done")
             {
-                System.Console.WriteLine("No more help needed");
+                Console.WriteLine("No more help needed");
                 return false;
             }
             else if (helpResponse != "account" && helpResponse != "order" && helpResponse != "product" && helpResponse != "store")
@@ -28,41 +28,42 @@ namespace InstrumentStore
                 System.Console.WriteLine("Lets help you with that!");
                 if (helpResponse == "account")
                 {
-                    AccountHelp();
+                    AccountHelpCustomer();
                 }
                 else if (helpResponse == "order")
                 {
-                    OrderHelp();
+                    OrderHelpCustomer();
                 }
                 else if (helpResponse == "product")
                 {
-                    ProductHelp();
+                    ProductHelpCustomer();
                 }
                 else if (helpResponse == "store")
                 {
-                    StoreHelp();
+                    StoreHelpCustomer();
                 }
             return true;
             }
         }
 
-        static void AccountHelp()
+        static void AccountHelpCustomer()
         {
 
         }
 
-        static void OrderHelp()
+        static void OrderHelpCustomer()
         {
 
         }
 
-        static void ProductHelp()
+        static void ProductHelpCustomer()
         {
 
         }
 
-        static void StoreHelp()
+        static void StoreHelpCustomer()
         {
+
 
         }
 

@@ -1,23 +1,31 @@
 ﻿using System;
-
+using InstrumentStore.Library;
 namespace InstrumentStore
 {
     class Program
     {
         static void Main(string[] args)
         {
+            Console.WriteLine("Hello! Welcome to our online instrument store!\n\n'manager'\tFor use by managers.\n'customer'For use by customers.");
+            string whoIsUsing = Console.ReadLine().ToLower();
 
-            // Console.BackgroundColor = ConsoleColor.Blue;
-            // Console.ForegroundColor = ConsoleColor.Green;
-            // Console.WriteLine(value.PadRight(Console.WindowWidth - 1));
-            // Console.ResetColor();
+            if (whoIsUsing == "manager")
+            {
+                //ManagerOptions();
+            }
+            else if(whoIsUsing == "customer")
+            {
+                //CustomerOptions();
+            }
 
-            Console.WriteLine("Hello! Welcome to our instrument store! \n\nIf you would like to see a selection of products we have, type 'products'. \nTo see a list of store locations, type 'stores'. \nfor a list of any other options, type 'help'.");
+
+
+            Console.WriteLine("'products'\tSelection of products we have.\n'stores'\tList of stores.\n'help'\tQuestions about any of these options");
 
             bool helpme = false;
 
-            string response = System.Console.ReadLine().ToLower();
-            System.Console.WriteLine("\n\n");
+            string response = Console.ReadLine().ToLower();
+            Console.WriteLine("\n\n");
 
             if (response == "help")
             {
@@ -26,13 +34,19 @@ namespace InstrumentStore
 
             while (helpme)
             {
-                helpme = Help.StartHelp();
-                
+                if (whoIsUsing == "customer")
+                {
+                    helpme = CustomerHelp.StartHelpCustomer();
+                }
+                else if (whoIsUsing == "manager")
+                {
+                    helpme = ManagerHelp.StartHelpManager();
+                }
             }
 
             if (!helpme)
             {
-                System.Console.WriteLine("Let's start your order!");
+                System.Console.WriteLine("Let's get back your order!");
 
             }
         }
