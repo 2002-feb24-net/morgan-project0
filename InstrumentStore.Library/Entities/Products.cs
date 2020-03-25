@@ -1,16 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace InstrumentStore.App.Entities
+namespace InstrumentStore.Library.Entities
 {
     public partial class Products
     {
         public Products()
         {
-            CustomerProducts = new HashSet<CustomerProducts>();
-            Orders = new HashSet<Orders>();
             ProductOrders = new HashSet<ProductOrders>();
-            StoreProducts = new HashSet<StoreProducts>();
         }
 
         public int ProductId { get; set; }
@@ -20,9 +17,6 @@ namespace InstrumentStore.App.Entities
         public decimal? Price { get; set; }
         public int Quantity { get; set; }
 
-        public virtual ICollection<CustomerProducts> CustomerProducts { get; set; }
-        public virtual ICollection<Orders> Orders { get; set; }
         public virtual ICollection<ProductOrders> ProductOrders { get; set; }
-        public virtual ICollection<StoreProducts> StoreProducts { get; set; }
     }
 }

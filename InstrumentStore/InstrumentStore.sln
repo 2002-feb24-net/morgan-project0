@@ -7,6 +7,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "InstrumentStore.App", "Inst
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "InstrumentStore.Library", "..\InstrumentStore.Library\InstrumentStore.Library.csproj", "{6E506737-C9D9-43C0-92D1-2BC2D35BA425}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InstrumentStore.Tests", "..\InstrumentStore.Tests\InstrumentStore.Tests.csproj", "{E8DF9CC4-7310-4FDC-AAA3-667151D0C06E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{6E506737-C9D9-43C0-92D1-2BC2D35BA425}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6E506737-C9D9-43C0-92D1-2BC2D35BA425}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6E506737-C9D9-43C0-92D1-2BC2D35BA425}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E8DF9CC4-7310-4FDC-AAA3-667151D0C06E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E8DF9CC4-7310-4FDC-AAA3-667151D0C06E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E8DF9CC4-7310-4FDC-AAA3-667151D0C06E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E8DF9CC4-7310-4FDC-AAA3-667151D0C06E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace InstrumentStore.App.Entities
+namespace InstrumentStore.Library.Entities
 {
     public partial class Orders
     {
@@ -17,7 +17,6 @@ namespace InstrumentStore.App.Entities
         public DateTime? Date { get; set; }
 
         public virtual Customers Customer { get; set; }
-        public virtual Products Product { get; set; }
         public virtual Stores Store { get; set; }
         public virtual ICollection<ProductOrders> ProductOrders { get; set; }
     }

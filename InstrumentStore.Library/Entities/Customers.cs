@@ -1,13 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace InstrumentStore.App.Entities
+namespace InstrumentStore.Library.Entities
 {
     public partial class Customers
     {
         public Customers()
         {
-            CustomerProducts = new HashSet<CustomerProducts>();
             Orders = new HashSet<Orders>();
         }
 
@@ -21,8 +20,6 @@ namespace InstrumentStore.App.Entities
         public string City { get; set; }
         public string State { get; set; }
 
-        public virtual Stores Store { get; set; }
-        public virtual ICollection<CustomerProducts> CustomerProducts { get; set; }
         public virtual ICollection<Orders> Orders { get; set; }
     }
 }

@@ -1,7 +1,8 @@
-﻿using System;
+﻿using InstrumentStore.Library.Entities;
+using System;
 using System.Collections.Generic;
 
-namespace InstrumentStore.App.Entities
+namespace InstrumentStore.Data.Entities
 {
     public partial class CustomerProducts
     {

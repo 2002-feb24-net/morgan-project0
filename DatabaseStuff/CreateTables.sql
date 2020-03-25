@@ -16,18 +16,6 @@ CREATE TABLE Customers(
 	State varchar(12)	
 )
 
-CREATE TABLE Managers(
-	ManagerID int NOT NULL IDENTITY (2001,1) PRIMARY KEY,
-	StoreID int NOT NULL FOREIGN KEY REFERENCES Stores(StoreID),
-	LastName varchar(30),
-	FirstName varchar(30),
-	Phone char(10),
-	Email varchar (100),
-	Address varchar(50),
-	City varchar(50),
-	State varchar(12)
-)
-
 CREATE Table Products(
 	ProductID int NOT NULL IDENTITY (3001, 1) PRIMARY KEY,
 	Name varchar(50) NOT NULL,
