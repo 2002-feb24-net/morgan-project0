@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace InstrumentStore.Library.Entities
+namespace InstrumentStore.App.Entities
 {
     public partial class Products
     {
@@ -16,7 +16,9 @@ namespace InstrumentStore.Library.Entities
         public string Brand { get; set; }
         public decimal? Price { get; set; }
         public int Quantity { get; set; }
+        public int? StoreId { get; set; }
 
+        public virtual Stores Store { get; set; }
         public virtual ICollection<ProductOrders> ProductOrders { get; set; }
     }
 }

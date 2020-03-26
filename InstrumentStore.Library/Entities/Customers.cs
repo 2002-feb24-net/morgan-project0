@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace InstrumentStore.Library.Entities
+namespace InstrumentStore.App.Entities
 {
     public partial class Customers
     {
@@ -19,6 +19,7 @@ namespace InstrumentStore.Library.Entities
         public string Address { get; set; }
         public string City { get; set; }
         public string State { get; set; }
+        public string FullName { get; set; }
 
         public virtual ICollection<Orders> Orders { get; set; }
     }

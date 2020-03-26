@@ -1,13 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace InstrumentStore.Library.Entities
+namespace InstrumentStore.App.Entities
 {
     public partial class Stores
     {
         public Stores()
         {
             Orders = new HashSet<Orders>();
+            Products = new HashSet<Products>();
         }
 
         public int StoreId { get; set; }
@@ -15,5 +16,6 @@ namespace InstrumentStore.Library.Entities
         public string State { get; set; }
 
         public virtual ICollection<Orders> Orders { get; set; }
+        public virtual ICollection<Products> Products { get; set; }
     }
 }

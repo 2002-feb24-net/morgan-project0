@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
-using InstrumentStore.Data.Entities;
-using InstrumentStore.Library.Entities;
+using InstrumentStore.App.Entities;
 
 namespace InstrumentStore.Library
 {
@@ -20,6 +19,11 @@ namespace InstrumentStore.Library
 
             cont.Stores.Add(newStore);
             cont.SaveChanges();
+        }
+
+        public static void ViewStores(StoreDbContext cont)
+        {
+
         }
     }
 }

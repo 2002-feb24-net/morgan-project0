@@ -1,5 +1,4 @@
-using InstrumentStore.Data.Entities;
-using InstrumentStore.Library.Entities;
+using InstrumentStore.App.Entities;
 using System;
 
 namespace InstrumentStore.Library
@@ -10,7 +9,7 @@ namespace InstrumentStore.Library
         {
             var newProd = new Products();
 
-           
+
             Console.WriteLine("Please enter some information about the product!");
             Console.Write("Product name: ");
             newProd.Name = Console.ReadLine();
@@ -29,6 +28,11 @@ namespace InstrumentStore.Library
 
             cont.Products.Add(newProd);
             cont.SaveChanges();
+        }
+
+        public static void ViewProducts(StoreDbContext cont)
+        {
+
         }
     }
 }

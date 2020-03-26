@@ -1,5 +1,4 @@
-using InstrumentStore.Data.Entities;
-using InstrumentStore.Library.Entities;
+using InstrumentStore.App.Entities;
 using System;
 
 namespace InstrumentStore.Library
@@ -10,6 +9,15 @@ namespace InstrumentStore.Library
         {
             var newOrder = new Orders();
 
+        }
+
+        public static void ViewCustomerOrder(StoreDbContext cont)
+        {
+
+        }
+
+        public static void ViewAllOrdersForStore(StoreDbContext cont)
+        {
 
         }
     }

@@ -1,0 +1,16 @@
+{
+  "exclude": [
+    "**/bin",
+    "**/bower_components",
+    "**/jspm_packages",
+    "**/node_modules",
+    "**/obj",
+    "**/platforms",
+
+    {
+      "ConnectionStrings": {
+        "StoreDb": "Server=tcp:2002-training-hay.database.windows.net,1433;Initial Catalog=StoreDb;Persist Security Info=False;User ID=morgan;Password=Password123;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;"
+      }
+    }
+  ]
+}

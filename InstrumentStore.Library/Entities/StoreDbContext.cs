@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
 
-namespace InstrumentStore.Library.Entities
+namespace InstrumentStore.App.Entities
 {
     public partial class StoreDbContext : DbContext
     {
@@ -55,6 +55,12 @@ namespace InstrumentStore.Library.Entities
                     .IsRequired()
                     .HasMaxLength(30)
                     .IsUnicode(false);
+
+                entity.Property(e => e.FullName)
+                    .IsRequired()
+                    .HasMaxLength(61)
+                    .IsUnicode(false)
+                    .HasComputedColumnSql("(([FirstName]+' ')+[LastName])");
 
                 entity.Property(e => e.LastName)
                     .IsRequired()
@@ -145,9 +151,16 @@ namespace InstrumentStore.Library.Entities
 
                 entity.Property(e => e.Price).HasColumnType("money");
 
+                entity.Property(e => e.StoreId).HasColumnName("StoreID");
+
                 entity.Property(e => e.Type)
                     .HasMaxLength(50)
                     .IsUnicode(false);
+
+                entity.HasOne(d => d.Store)
+                    .WithMany(p => p.Products)
+                    .HasForeignKey(d => d.StoreId)
+                    .HasConstraintName("FK__Products__StoreI__43D61337");
             });
 
             modelBuilder.Entity<Stores>(entity =>
