@@ -147,7 +147,7 @@ namespace InstrumentStore.Library
                 allProds.ToList();
                 foreach (var pr in allProds)
                 {
-                    Console.WriteLine($"{ pr.Name} { pr.Price} {pr.Quantity}");
+                    Console.WriteLine($"Product: { pr.Name} Price: { pr.Price} Quantity: {pr.Quantity}");
                 }
 
                 Console.WriteLine("Enter the name of a product you would like to buy");
