@@ -1,15 +1,11 @@
+using InstrumentStore.Library.Entities;
 using System;
 using System.Linq;
-using InstrumentStore.App.Entities;
 
 namespace InstrumentStore.Library
 {
     public class Customer
     {
-        public static string _fullName { get; set; }
-        //add a private property. We are going to set it in the customer and retreive it in the program
-        //need to SET this from the return value from ReturningCustomer()
-
 
         public static void AddCustomers(StoreDbContext cont)
         {
@@ -36,17 +32,19 @@ namespace InstrumentStore.Library
             Console.Write("State: ");
             newCust.State = Console.ReadLine();
 
+            Console.WriteLine("Default Store is set to Macon, Georgia");
+
             cont.Customers.Add(newCust);
             cont.SaveChanges();
 
             StartCustomer(cont);
         }
 
-        public static void StartCustomer(StoreDbContext cont)
+        public static Customers StartCustomer(StoreDbContext cont)
         {
             Console.WriteLine("'return'\tFor returning customer\n'new'\t\tFor new customer");
             var who = Console.ReadLine().ToLower();
-
+            Customers customer = new Customers();
             while (who != "return" && who != "new")
             {
                 Console.WriteLine("Invalid response! Please enter 'return' or 'new'");
@@ -54,17 +52,18 @@ namespace InstrumentStore.Library
             }
             if (who == "return")
             {
-                ReturningCustomer(cont);
+                customer = ReturningCustomer(cont);
             }
             else if (who == "new")
             {
                 Customer.AddCustomers(cont);
             }
+            return customer;
         }
 
-        public static void CustomerOptions(StoreDbContext cont, string wholeName)
+        public static void CustomerOptions(StoreDbContext cont, Customers p)
         {
-
+            Beginning:
             Console.WriteLine("'store'\t\tTo view or change your store location\n" +
                               "'order'\t\tOrder products from your default store\n" +
                               "'history'\tSee the history of all your orders");
@@ -77,41 +76,141 @@ namespace InstrumentStore.Library
 
             if (custSelect == "store")
             {
-/*                var custList = from Customers in cont.Customers
-                               where Customers.FullName == wholeName
-                               select (Customers);
 
-                var storeList = from Stores in cont.Stores
-                                select (Stores);
+                var storeInfo = cont.Stores.FirstOrDefault(s => s.StoreId == p.StoreId);
 
-                var custStore = from Customers in cont.Customers join Stores in cont.Stores on Customers.StoreId equals Stores.StoreId
-                                select (Stores);
+                string loca = "n";
 
+                AfterStoreLocation:
 
-                                var custFull = cont.Customers.FirstOrDefault(s => s.City == custStore);
+                if (storeInfo == null)
+                {
+                    goto StoreLocation;
+                }
+                else
+                {
+                    Console.WriteLine($"Your current store is {storeInfo.City}, {storeInfo.State}");
+            
+                    Console.WriteLine("Is this store location okay? (y/n)");
+                    loca = Console.ReadLine().ToLower();
+                }
 
-                                Console.WriteLine($"Your current store is {custStore}");*/
+                StoreLocation:
+
+                while (loca != "y" && loca != "n")
+                {
+                    Console.WriteLine("Please enter 'y' or 'n' to confirm store location");
+                    loca = Console.ReadLine().ToLower();
+                }
+
+                if (loca == "y")
+                {
+                    //save changes to Customers.StoreID for the current user and then go back to the CustomerOptions(cont, person);
+                    //cont.Customers.Update(cont.Customers);
+                    //cont.SaveChanges();
+                }
+                else if (loca == "n")
+                {
+                    //for each store in the database, display city and state 
+                    Console.WriteLine("1    Atlanta, Georgia");
+                    Console.WriteLine("2    Macon, Georgia");
+                    Console.WriteLine("3    Savannah, Georgia");
+                    Console.WriteLine("4    Houston, Texas");
+                    Console.WriteLine("5    Austin, Texas");
+                    Console.WriteLine("6    Dallas, Texas");
+
+                    var cityChoice = Int32.Parse(Console.ReadLine()) + 2;
+
+                    while (cityChoice < 3 && cityChoice > 8)
+                    {
+                        Console.WriteLine("Please enter a valid value from the options above");                        
+                    }
+                    p.StoreId = cityChoice;
+                    storeInfo = cont.Stores.FirstOrDefault(s => s.StoreId == p.StoreId);
+                    Console.WriteLine($"Your store is {storeInfo.City}, {storeInfo.State}");
+                    cont.SaveChanges();
+                    goto AfterStoreLocation;
+                }
+                goto Beginning;
             }
             else if (custSelect == "order")
             {
+                Console.WriteLine("Here is a list of current products for your store"); 
+                var allProds = from prods in cont.Products
+                               where prods.StoreId == p.StoreId
+                               select prods;
+
+                allProds.ToList();
+                foreach (var pr in allProds)
+                {
+                    Console.WriteLine($"{ pr.Name} { pr.Price} {pr.Quantity}");
+                }
+
+                Console.WriteLine("Enter the name of a product you would like to buy");
+                var wants = Console.ReadLine().ToLower();
+
+                Products product = new Products();
+                foreach (var pr in allProds)
+                {
+                    if(pr.Name.ToLower() == wants)
+                    {
+                        product = pr;
+                    }
+                }
+                
+                Console.WriteLine($"How many {wants}s would you like to buy?");
+                var wantQuant = Int32.Parse(Console.ReadLine());
+
+                while(wantQuant >= product.Quantity)
+                {
+                    Console.WriteLine("Please enter a valid quantity");
+                }
+
+                Console.WriteLine($"You have added {wantQuant} {wants}(s) to your cart.");
+
+                Console.WriteLine("Would you like to proceed to checkout?(y/n)");
+                var response = Console.ReadLine().ToLower();
+
+                Orders order = new Orders();
+                while (response != "y" && response != "n")
+                {
+                    Console.WriteLine("Please enter 'y' or 'n' to checkout!");
+                    response = Console.ReadLine();
+                }
+
+                if (response == "y")
+                {
+                    Console.WriteLine("Lets proceed to checkout");
+                    order.CustomerId = p.CustomerId;
+                    order.ProductId = product.ProductId;
+                    order.StoreId = p.StoreId;
+                    order.Date = DateTime.Now;
+                    order.Quantities = wantQuant;
+                    order.TotalPrice = (wantQuant * product.Price);
+                }
+                else if(response == "n")
+                {
+                    goto Beginning;
+                }
 
             }
             else if (custSelect == "history")
             {
-                // display all orders with 
+
+                var orderHist = from hist in cont.Orders
+                                where hist.CustomerId == p.CustomerId
+                                select hist;
+
+                Orders order = new Orders();
+                foreach (var o in orderHist)
+                {
+                    Console.WriteLine($"{o.OrderId} {o.CustomerId} {o.ProductId} {o.Date} {o.Quantities} {o.TotalPrice}");
+                }
             }
+            goto Beginning;
         }
 
-        public static void SetCustomerStore(StoreDbContext cont)
-        {
-
-        }
-
-        public static void ViewAllCustomers(StoreDbContext cont)
-        {
-
-        }
-        public static string ReturningCustomer(StoreDbContext cont)
+        public static Customers ReturningCustomer(StoreDbContext cont)
         {
 
             Console.WriteLine("Welcome back!\nWhat is your first and last name?");
@@ -132,9 +231,9 @@ namespace InstrumentStore.Library
             }
             else if (custFull != null)
             {
-                Console.WriteLine($"Hey there, {tempName}!");
+                Console.WriteLine($"Hey there, {custFull.FullName}!");
             }
-            return tempName;
+            return custFull;
         }
     }    
 }

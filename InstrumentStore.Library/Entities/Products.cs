@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace InstrumentStore.App.Entities
+namespace InstrumentStore.Library.Entities
 {
     public partial class Products
     {

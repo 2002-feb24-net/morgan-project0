@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
 
-namespace InstrumentStore.App.Entities
+namespace InstrumentStore.Library.Entities
 {
     public partial class StoreDbContext : DbContext
     {
@@ -19,14 +19,15 @@ namespace InstrumentStore.App.Entities
         public virtual DbSet<Orders> Orders { get; set; }
         public virtual DbSet<ProductOrders> ProductOrders { get; set; }
         public virtual DbSet<Products> Products { get; set; }
+        public virtual DbSet<Song> Song { get; set; }
         public virtual DbSet<Stores> Stores { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             if (!optionsBuilder.IsConfigured)
             {
-#warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
-                optionsBuilder.UseSqlServer("Server=tcp:2002-training-hay.database.windows.net,1433;Initial Catalog=StoreDb;Persist Security Info=False;User ID=morgan;Password=Password123;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;");
+
+                optionsBuilder.UseSqlServer(SecretConfiguration.connectionString);
             }
         }
 
@@ -76,7 +77,15 @@ namespace InstrumentStore.App.Entities
                     .HasMaxLength(12)
                     .IsUnicode(false);
 
-                entity.Property(e => e.StoreId).HasColumnName("StoreID");
+                entity.Property(e => e.StoreId)
+                    .HasColumnName("StoreID")
+                    .HasDefaultValueSql("((4))");
+
+                entity.HasOne(d => d.Store)
+                    .WithMany(p => p.Customers)
+                    .HasForeignKey(d => d.StoreId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_Customers_Stores");
             });
 
             modelBuilder.Entity<Orders>(entity =>
@@ -95,6 +104,10 @@ namespace InstrumentStore.App.Entities
                 entity.Property(e => e.ProductId).HasColumnName("ProductID");
 
                 entity.Property(e => e.StoreId).HasColumnName("StoreID");
+
+                entity.Property(e => e.TotalPrice)
+                    .HasColumnName("Total_Price")
+                    .HasColumnType("money");
 
                 entity.HasOne(d => d.Customer)
                     .WithMany(p => p.Orders)
@@ -161,6 +174,19 @@ namespace InstrumentStore.App.Entities
                     .WithMany(p => p.Products)
                     .HasForeignKey(d => d.StoreId)
                     .HasConstraintName("FK__Products__StoreI__43D61337");
+            });
+
+            modelBuilder.Entity<Song>(entity =>
+            {
+                entity.Property(e => e.Id).HasColumnName("id");
+
+                entity.Property(e => e.Album).HasColumnName("album");
+
+                entity.Property(e => e.Artist).HasColumnName("artist");
+
+                entity.Property(e => e.Genre).HasColumnName("genre");
+
+                entity.Property(e => e.Title).HasColumnName("title");
             });
 
             modelBuilder.Entity<Stores>(entity =>

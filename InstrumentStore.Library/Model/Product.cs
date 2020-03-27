@@ -1,4 +1,4 @@
-using InstrumentStore.App.Entities;
+using InstrumentStore.Library.Entities;
 using System;
 
 namespace InstrumentStore.Library

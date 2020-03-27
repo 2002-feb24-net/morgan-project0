@@ -1,6 +1,6 @@
 using System;
 using System.Collections.Generic;
-using InstrumentStore.App.Entities;
+using InstrumentStore.Library.Entities;
 
 namespace InstrumentStore.Library
 {
