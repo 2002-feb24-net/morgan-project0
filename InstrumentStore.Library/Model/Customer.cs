@@ -32,7 +32,7 @@ namespace InstrumentStore.Library
             Console.Write("State: ");
             newCust.State = Console.ReadLine();
 
-            Console.WriteLine("Default Store is set to Macon, Georgia");
+            newCust.StoreId = 4;
 
             cont.Customers.Add(newCust);
             cont.SaveChanges();
@@ -64,12 +64,13 @@ namespace InstrumentStore.Library
         public static void CustomerOptions(StoreDbContext cont, Customers p)
         {
             Beginning:
-            Console.WriteLine("'store'\t\tTo view or change your store location\n" +
+            Console.WriteLine("'self'\t\t'To view or change information of the current user\n" +
+                              "'store'\t\tTo view or change your store location\n" +
                               "'order'\t\tOrder products from your default store\n" +
                               "'history'\tSee the history of all your orders");
             var custSelect = Console.ReadLine().ToLower();
 
-            while (custSelect != "store" && custSelect != "order" && custSelect != "history")
+            while (custSelect != "store" && custSelect != "order" && custSelect != "history" && custSelect != "self")
             {
                 Console.WriteLine("Please enter a correct response!");
             }
@@ -180,13 +181,24 @@ namespace InstrumentStore.Library
 
                 if (response == "y")
                 {
-                    Console.WriteLine("Lets proceed to checkout");
                     order.CustomerId = p.CustomerId;
                     order.ProductId = product.ProductId;
                     order.StoreId = p.StoreId;
                     order.Date = DateTime.Now;
                     order.Quantities = wantQuant;
                     order.TotalPrice = (wantQuant * product.Price);
+                    cont.Orders.Add(order);
+                    cont.SaveChanges();
+
+                    var qauntAfter = from prods in cont.Products
+                                   where prods.StoreId == p.StoreId
+                                   select prods;
+
+                    product.Quantity = product.Quantity - wantQuant;
+                    cont.Products.Update(product);
+                    cont.SaveChanges();
+
+                    Console.WriteLine("Your order has been placed!");
                 }
                 else if(response == "n")
                 {
@@ -204,7 +216,62 @@ namespace InstrumentStore.Library
                 Orders order = new Orders();
                 foreach (var o in orderHist)
                 {
-                    Console.WriteLine($"{o.OrderId} {o.CustomerId} {o.ProductId} {o.Date} {o.Quantities} {o.TotalPrice}");
+                    Console.WriteLine($"OrderId: {o.OrderId} \nCustomerId: {o.CustomerId} \nProductId: {o.ProductId} \nDate: {o.Date} \nQuantity: {o.Quantities} \nTotal Price: {o.TotalPrice}\n\n");
+                }
+            }
+            else if (custSelect == "self")
+            {
+                Console.WriteLine("This is your current information");
+                var custData = from cust in cont.Customers
+                               where cust.CustomerId == p.CustomerId 
+                               select cust;
+
+                Console.WriteLine($"First name: {p.FirstName}\n" +
+                    $"Last name: {p.LastName}\n" +
+                    $"Phone: {p.Phone}\n" +
+                    $"Email: {p.Email}\n" +
+                    $"Address: {p.Address}\n" +
+                    $"City: {p.City}\n" +
+                    $"State: {p.State}");
+
+                Console.WriteLine("Would you like to change your information? (y/n)");
+                var change = Console.ReadLine();
+
+                while (change != "y" && change != "n")
+                {
+                    Console.WriteLine("Please enter a valid response!");
+                    change = Console.ReadLine();
+                }
+
+                if (change == "y")
+                {
+                    Console.Write("[Required] First name: ");
+                    p.FirstName = Console.ReadLine();
+
+                    Console.Write("[Required] Last name: ");
+                    p.LastName = Console.ReadLine();
+
+                    Console.Write("Phone: ");
+                    p.Phone = Console.ReadLine();
+
+                    Console.Write("Email: ");
+                    p.Email = Console.ReadLine();
+
+                    Console.Write("Street: ");
+                    p.Address = Console.ReadLine();
+
+                    Console.Write("City: ");
+                    p.City = Console.ReadLine();
+
+                    Console.Write("State: ");
+                    p.State = Console.ReadLine();
+
+                    cont.SaveChanges();
+                    goto Beginning;
+                }
+                else if (change == "no")
+                {
+                    goto Beginning;
                 }
             }
             goto Beginning;
