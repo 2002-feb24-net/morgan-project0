@@ -67,12 +67,14 @@ namespace InstrumentStore.Library
             Console.WriteLine("'self'\t\t'To view or change information of the current user\n" +
                               "'store'\t\tTo view or change your store location\n" +
                               "'order'\t\tOrder products from your default store\n" +
-                              "'history'\tSee the history of all your orders");
+                              "'history'\tSee the history of all your orders\n" +
+                              "'exit'\t\tTo close the program");
             var custSelect = Console.ReadLine().ToLower();
 
-            while (custSelect != "store" && custSelect != "order" && custSelect != "history" && custSelect != "self")
+            while (custSelect != "store" && custSelect != "order" && custSelect != "history" && custSelect != "self" && custSelect != "exit")
             {
                 Console.WriteLine("Please enter a correct response!");
+                custSelect = Console.ReadLine();
             }
 
             if (custSelect == "store")
@@ -124,7 +126,8 @@ namespace InstrumentStore.Library
 
                     while (cityChoice < 3 && cityChoice > 8)
                     {
-                        Console.WriteLine("Please enter a valid value from the options above");                        
+                        Console.WriteLine("Please enter a valid value from the options above");
+                        cityChoice = Int32.Parse(Console.ReadLine()) + 2;
                     }
                     p.StoreId = cityChoice;
                     storeInfo = cont.Stores.FirstOrDefault(s => s.StoreId == p.StoreId);
@@ -165,6 +168,7 @@ namespace InstrumentStore.Library
                 while(wantQuant >= product.Quantity)
                 {
                     Console.WriteLine("Please enter a valid quantity");
+                    wantQuant = Int32.Parse(Console.ReadLine());
                 }
 
                 Console.WriteLine($"You have added {wantQuant} {wants}(s) to your cart.");
@@ -194,7 +198,7 @@ namespace InstrumentStore.Library
                                    where prods.StoreId == p.StoreId
                                    select prods;
 
-                    product.Quantity = product.Quantity - wantQuant;
+                    product.Quantity -= wantQuant;
                     cont.Products.Update(product);
                     cont.SaveChanges();
 
@@ -273,6 +277,10 @@ namespace InstrumentStore.Library
                 {
                     goto Beginning;
                 }
+            }
+            else if (custSelect == "exit")
+            {
+                Environment.Exit(0);
             }
             goto Beginning;
         }

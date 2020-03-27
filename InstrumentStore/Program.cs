@@ -14,7 +14,6 @@ namespace InstrumentStore.App
 
         static void Main(string[] args)
         {
-
             Console.WriteLine("Welcome to our online instrument store!\n");
             var customer = Customer.StartCustomer(cont);
 
