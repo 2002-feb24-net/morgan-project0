@@ -122,8 +122,15 @@ namespace InstrumentStore.Library
                     Console.WriteLine("5    Austin, Texas");
                     Console.WriteLine("6    Dallas, Texas");
 
-                    var cityChoice = Int32.Parse(Console.ReadLine()) + 2;
 
+                    try
+                    {
+                        var cityChoice = Int32.Parse(Console.ReadLine()) + 2;
+                    }
+                    catch(Exception exception)
+                    {
+                        Console.WriteLine("Please enter a valid number to continue")
+                    }
                     while (cityChoice < 3 && cityChoice > 8)
                     {
                         Console.WriteLine("Please enter a valid value from the options above");
